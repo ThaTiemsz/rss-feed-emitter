@@ -29,6 +29,12 @@ class RssFeedEmitter extends TinyEmitter {
 
   // The constructor special method is called everytime
   // we create a new instance of this "Class".
+  /**
+   * Create an instance
+   * @param {Object} options
+   * @param {String} [options.userAgent='Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)'] Specify a User Agent
+   * @param {Number} [options.historyLengthMultiplier=3] Specify the number the maximum items in the history should be multiplied by. So, if the feed has 10 items, we will keep 30 items max in the history.
+   */
   constructor( options = {} ) {
 
     // Since this is a "Class", you have to call #super method
@@ -47,9 +53,9 @@ class RssFeedEmitter extends TinyEmitter {
     // This module manages automatically how many feed items
     // it will keep in memory, and basically it will have a
     // maximum history which is how many items the feed has
-    // multiplied by this number below. So, if the feed have
+    // multiplied by this number below. So, if the feed has
     // 10 items, we will keep 30 items max in the history.
-    this._historyLengthMultiplier = 3;
+    this._historyLengthMultiplier = options.historyLengthMultipler || 3;
 
   }
 
@@ -70,6 +76,12 @@ class RssFeedEmitter extends TinyEmitter {
   //   refresh: 2000
   // }
 
+  /**
+   * Add a feed
+   * @param {Object} options
+   * @param {String} options.url The URL
+   * @param {Number} [options.refresh=60000] Refresh interval in milliseconds
+   */
   add( userFeedConfig ) {
 
     // We are going to use a private method to validate
@@ -103,6 +115,10 @@ class RssFeedEmitter extends TinyEmitter {
   // This is a very simple method and its functionality is
   // remove a feed from the feedList.
 
+  /**
+   * Remove a single feed
+   * @param {String} url The URL
+   */
   remove( url ) {
 
     // Check if the "url" parameter is a string,
@@ -132,6 +148,9 @@ class RssFeedEmitter extends TinyEmitter {
   // LIST
   // Just return the feedList array.
 
+  /**
+   * List all feeds in the instance
+   */
   list() {
 
     return this._feedList;
@@ -142,6 +161,9 @@ class RssFeedEmitter extends TinyEmitter {
   // DESTROY
   // Remove all feeds from feedList.
 
+  /**
+   * Remove all feeds from the instance
+   */
   destroy() {
 
     // There's a gotcha here since we are iterating over an array
